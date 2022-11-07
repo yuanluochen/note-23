@@ -1,0 +1,92 @@
+#include <stdio.h>
+#include <math.h>
+//最小二乘法
+
+//求和函数
+double sum(double arr[], int n)
+{
+    double sum = 0;
+    //数值求和
+    for(int i = 0; i < n; i++)
+    {
+        sum += arr[i];
+    }
+    return sum;
+}
+
+void menu()
+{
+    printf("======最小二乘法=======\n");
+    printf("===y = a0 + a1 * x===\n");
+}
+int main()
+{
+    //输出菜单
+    menu();
+    int n = 0;
+    //提示
+    printf("共有几组变量:>\n");
+    scanf("%d", &n);
+    double x[n];//自变量 
+    double y[n];//因变量
+    /**如果用vs来编译的花以上写法不合理**/
+    //输入自变量与因变量
+    int i = 0;
+    for(i = 0; i < n;i++)
+    {
+        //提示
+        printf("输入第%d组自变量:>\n", i);
+        scanf("%lf", &x[i]);
+        //输入因变量
+        printf("输入第%d组因变量:>\n", i);
+        scanf("%lf", &y[i]);
+    }
+    //求和
+    //自变量求和
+    double SumX = sum(x, n);
+    //因变量求和
+    double SumY = sum(y, n);
+    
+    //自变量的平方求和   
+    //获取自变量平方数组
+    //定义自变量平方数组
+    double x2[n];
+    for(i = 0; i < n; i++)
+    {
+        x2[i] = x[i] * x[i];
+    }
+    //求和
+    double SumX2 = sum(x2, n);
+
+    //自变量与因变量乘积求和
+    //获取自变量平方数组
+    //定义自变量平方数组
+    double xy[n];
+    for(i = 0; i < n; i++)
+    {
+        xy[i] = x[i] * y[i];
+    }
+    //求和
+    double SumXY = sum(xy, n);
+
+    //因变量的平方求和
+    double y2[n];
+    for(i = 0; i < n; i++)
+    {
+        y2[i] = y[i] * y[i];
+    }
+    //求和
+    double SumY2 = sum(y2, n);
+
+    double a0 = (SumY * SumX2 - SumX * SumXY) / (n * SumX2 - SumX * SumX);
+    double a1 = (n * SumXY - SumX * SumY) / (n * SumX2 - SumX * SumX);
+    double r = (n * SumXY - SumX * SumY) / pow(((n * SumX2 - SumX * SumX) * (n * SumY2 - SumY * SumY)), 1/2);
+    //输出
+    printf("===y = a0 + a1 * x===\n");
+    printf("a0 = %lf\n", a0);
+    printf("a1 = %lf\n", a1);
+    printf("r  = %lf\n", r);
+    
+
+    return 0;
+}
